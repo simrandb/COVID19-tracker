@@ -1,14 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(Countries());
+void main() => runApp(MyApp());
+
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Covid-19 Tracker',
-      home: Scaffold(
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => Cover(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/countries': (context) => Countries(),
+      },
+    );
+  }
+}
+
+
+
+class Cover extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text('Covid-19 tracker'),
@@ -80,6 +99,9 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context,"/countries");
+                },
                 trailing: Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -108,10 +130,7 @@ class MyApp extends StatelessWidget {
                   },
                 ),
                 title: Text('Status'),
-                onTap: ()  {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Countries()));
 
-                },
               ),
 
             ],
@@ -139,23 +158,23 @@ class MyApp extends StatelessWidget {
                 children: <Widget>[
 
                   Text("WorldWide",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-            Container(
-              height: 35,
-            width: 100,
-            child: Center(
-            child:new Text("Regional",textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20),),
-            ),
+                  Container(
+                    height: 35,
+                    width: 100,
+                    child: Center(
+                      child:new Text("Regional",textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20),),
+                    ),
 
-    decoration: new BoxDecoration(
-    color: Colors.black,
-    borderRadius: new BorderRadius.only(
-    topLeft: const Radius.circular(40.0),
-    topRight: const Radius.circular(40.0),
-    bottomLeft: const Radius.circular(40.0),
-    bottomRight:const Radius.circular(40.0),
-    )
-    ),
-    ),
+                    decoration: new BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: new BorderRadius.only(
+                          topLeft: const Radius.circular(40.0),
+                          topRight: const Radius.circular(40.0),
+                          bottomLeft: const Radius.circular(40.0),
+                          bottomRight:const Radius.circular(40.0),
+                        )
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -283,9 +302,8 @@ class MyApp extends StatelessWidget {
           ),
         )
 
-      ),
     );
-  }
+      }
 }
 
 
